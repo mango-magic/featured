@@ -32,7 +32,142 @@
     content: ''; position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999;
+    pointer-events: none; z-index: 9998;
+  }
+
+  /* ========== AMBIENT SHAPES ========== */
+  .ambient {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none; overflow: hidden;
+  }
+  .ambient-shape {
+    position: absolute;
+    border: 1px solid rgba(241,171,28,0.18);
+    border-radius: 50%;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  /* Orbital rings */
+  .orbit-1 {
+    width: 600px; height: 600px;
+    top: -150px; right: -200px;
+    animation: orbitSpin 90s linear infinite;
+  }
+  .orbit-2 {
+    width: 450px; height: 450px;
+    bottom: -100px; left: -150px;
+    border-color: rgba(241,171,28,0.12);
+    animation: orbitSpin 120s linear infinite reverse;
+  }
+  .orbit-3 {
+    width: 300px; height: 300px;
+    top: 40%; left: 60%;
+    border-color: rgba(241,171,28,0.09);
+    animation: orbitSpin 70s linear infinite;
+  }
+  /* Floating geometric nodes */
+  .node {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: rgba(241,171,28,0.4);
+    border: none; border-radius: 50%;
+    box-shadow: 0 0 12px rgba(241,171,28,0.3);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .node-1 { top: 15%; left: 8%; animation: nodeFloat1 18s ease-in-out infinite; }
+  .node-2 { top: 70%; right: 12%; animation: nodeFloat2 22s ease-in-out infinite; }
+  .node-3 { top: 45%; left: 75%; animation: nodeFloat3 15s ease-in-out infinite; width: 4px; height: 4px; background: rgba(241,171,28,0.3); }
+  .node-4 { top: 25%; right: 30%; animation: nodeFloat1 25s ease-in-out infinite reverse; width: 5px; height: 5px; background: rgba(241,171,28,0.2); }
+  .node-5 { bottom: 20%; left: 25%; animation: nodeFloat2 20s ease-in-out infinite; width: 3px; height: 3px; background: rgba(241,171,28,0.35); }
+  /* Diamond shapes */
+  .diamond {
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid rgba(241,171,28,0.2);
+    border-radius: 2px;
+    transform: rotate(45deg);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .diamond-1 { top: 30%; right: 15%; animation: diamondDrift1 30s ease-in-out infinite; }
+  .diamond-2 { bottom: 35%; left: 10%; animation: diamondDrift2 24s ease-in-out infinite; width: 10px; height: 10px; border-color: rgba(241,171,28,0.15); }
+  .diamond-3 { top: 60%; right: 40%; animation: diamondDrift1 35s ease-in-out infinite reverse; width: 18px; height: 18px; border-color: rgba(241,171,28,0.12); }
+  /* Thin crosshair lines */
+  .crosshair {
+    position: absolute;
+  }
+  .crosshair::before, .crosshair::after {
+    content: ''; position: absolute;
+    background: rgba(241,171,28,0.1);
+  }
+  .crosshair::before { width: 50px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .crosshair::after { width: 1px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .cross-1 { top: 20%; left: 20%; animation: crossFade 12s ease-in-out infinite; }
+  .cross-2 { bottom: 25%; right: 18%; animation: crossFade 16s ease-in-out infinite 4s; }
+  /* Soft glow orbs */
+  .glow-orb {
+    position: absolute; border: none; border-radius: 50%;
+    filter: blur(60px);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .glow-1 {
+    width: 250px; height: 250px;
+    top: 10%; right: 5%;
+    background: rgba(241,171,28,0.06);
+    animation: orbPulse 20s ease-in-out infinite;
+  }
+  .glow-2 {
+    width: 200px; height: 200px;
+    bottom: 15%; left: 8%;
+    background: rgba(241,171,28,0.05);
+    animation: orbPulse 25s ease-in-out infinite 8s;
+  }
+
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes nodeFloat1 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+    25% { transform: translate(30px, -20px); opacity: 1; }
+    50% { transform: translate(-10px, -40px); opacity: 0.6; }
+    75% { transform: translate(-25px, 15px); opacity: 0.9; }
+  }
+  @keyframes nodeFloat2 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+    33% { transform: translate(-20px, 30px); opacity: 1; }
+    66% { transform: translate(25px, -15px); opacity: 0.3; }
+  }
+  @keyframes nodeFloat3 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    50% { transform: translate(15px, 25px); opacity: 0.8; }
+  }
+  @keyframes diamondDrift1 {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+    50% { transform: rotate(45deg) translate(20px, -30px); opacity: 1; }
+  }
+  @keyframes diamondDrift2 {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.6; }
+    50% { transform: rotate(45deg) translate(-15px, 20px); opacity: 0.3; }
+  }
+  @keyframes crossFade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes orbPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+
+  /* Hide some shapes on mobile for performance */
+  @media (max-width: 768px) {
+    .orbit-3, .diamond-3, .node-4, .cross-2, .glow-2 { display: none; }
+    .orbit-1 { width: 400px; height: 400px; }
+    .orbit-2 { width: 300px; height: 300px; }
+  }
+  @media (max-width: 480px) {
+    .orbit-2, .diamond-2, .node-3, .node-5 { display: none; }
+    .orbit-1 { width: 300px; height: 300px; top: -100px; right: -120px; }
+    .glow-1 { width: 120px; height: 120px; }
   }
 
   /* ========== SPLASH ========== */
@@ -554,6 +689,25 @@
   <source src="https://drive.google.com/uc?export=download&id={SONG_FILE_ID}" type="audio/mpeg">
 </audio>
 
+<!-- AMBIENT SHAPES -->
+<div class="ambient" aria-hidden="true">
+  <div class="ambient-shape orbit-1"></div>
+  <div class="ambient-shape orbit-2"></div>
+  <div class="ambient-shape orbit-3"></div>
+  <div class="node node-1"></div>
+  <div class="node node-2"></div>
+  <div class="node node-3"></div>
+  <div class="node node-4"></div>
+  <div class="node node-5"></div>
+  <div class="diamond diamond-1"></div>
+  <div class="diamond diamond-2"></div>
+  <div class="diamond diamond-3"></div>
+  <div class="crosshair cross-1"></div>
+  <div class="crosshair cross-2"></div>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+</div>
+
 <!-- SPLASH -->
 <div class="splash" id="splash" onclick="enterSite()">
   <div class="splash-inner">
@@ -822,6 +976,32 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.08 });
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Ambient parallax - shapes respond to scroll
+  const ambient = document.querySelector('.ambient');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const s = window.scrollY;
+        const orbits = ambient.querySelectorAll('.ambient-shape');
+        const nodes = ambient.querySelectorAll('.node');
+        const diamonds = ambient.querySelectorAll('.diamond');
+        orbits.forEach((el, i) => {
+          el.style.transform = `rotate(${s * (0.02 + i * 0.01)}deg) translateY(${s * (0.03 + i * 0.01)}px)`;
+        });
+        nodes.forEach((el, i) => {
+          el.style.marginTop = `${Math.sin(s * 0.003 + i) * 15}px`;
+        });
+        diamonds.forEach((el, i) => {
+          const drift = Math.sin(s * 0.002 + i * 2) * 10;
+          el.style.marginLeft = `${drift}px`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
 
   function toggleLyrics() {
     const scroll = document.getElementById('lyricsScroll');
