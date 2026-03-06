@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matthew Leone - MangoMagic Live</title>
+<meta name="description" content="Matthew Leone joins MangoMagic Live to showcase AI-powered automation workflows transforming automotive sales, CRM, and business operations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<style>
+  :root {
+    --mango: #f1ab1c;
+    --mango-glow: #f1ab1c33;
+    --mango-deep: #d4940a;
+    --black: #0a0a0a;
+    --black-card: #111111;
+    --black-elevated: #161616;
+    --black-border: #1e1e1e;
+    --white: #f5f5f0;
+    --white-muted: #a0a09a;
+    --white-dim: #666660;
+    --chat--color-primary: #f1ab1c;
+    --chat--color-primary-shade-50: #e8a318;
+    --chat--color-primary-shade-100: #d39415;
+    --chat--color-secondary: #f1ab1c;
+    --chat--font-family: 'Montserrat', sans-serif;
+    --chat--spacing: 1.25rem;
+    --chat--border-radius: 12px;
+    --chat--message--font-size: 1rem;
+    --chat--message-line-height: 1.6;
+    --chat--header--background: #ffffff;
+    --chat--header--color: #333333;
+    --chat--header--padding: 1.25rem;
+    --chat--toggle--background: var(--chat--color-primary);
+    --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+    --chat--toggle--active--background: var(--chat--color-primary-shade-100);
+    --chat--toggle--color: #ffffff;
+    --chat--toggle--size: 56px;
+    --chat--message--user--background: var(--chat--color-primary);
+    --chat--message--user--color: #fff;
+    --chat--message--bot--background: #f5f5f5;
+    --chat--message--bot--color: #222;
+    --chat--heading--font-size: 1.5rem;
+    --chat--subtitle--font-size: 1rem;
+  }
+  .n8n-chat-widget * { font-family: 'Montserrat', sans-serif !important; font-weight: 300; }
+  .n8n-chat-widget h1, .n8n-chat-widget h2, .n8n-chat-widget h3, .n8n-chat-widget .chat-header__title { font-weight: 700 !important; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--mango) var(--black); }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background: var(--black); color: var(--white);
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9998;
+  }
+
+  /* ========== AMBIENT SHAPES ========== */
+  .ambient { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+  .ambient-shape { position: absolute; border: 1px solid rgba(241,171,28,0.18); border-radius: 50%; animation-timing-function: linear; animation-iteration-count: infinite; }
+  .orbit-1 { width: 600px; height: 600px; top: -150px; right: -200px; animation: orbitSpin 90s linear infinite; }
+  .orbit-2 { width: 450px; height: 450px; bottom: -100px; left: -150px; border-color: rgba(241,171,28,0.12); animation: orbitSpin 120s linear infinite reverse; }
+  .orbit-3 { width: 300px; height: 300px; top: 40%; left: 60%; border-color: rgba(241,171,28,0.09); animation: orbitSpin 70s linear infinite; }
+  .node { position: absolute; width: 6px; height: 6px; background: rgba(241,171,28,0.4); border: none; border-radius: 50%; box-shadow: 0 0 12px rgba(241,171,28,0.3); animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+  .node-1 { top: 15%; left: 8%; animation: nodeFloat1 18s ease-in-out infinite; }
+  .node-2 { top: 70%; right: 12%; animation: nodeFloat2 22s ease-in-out infinite; }
+  .node-3 { top: 45%; left: 75%; animation: nodeFloat3 15s ease-in-out infinite; width: 4px; height: 4px; background: rgba(241,171,28,0.3); }
+  .node-4 { top: 25%; right: 30%; animation: nodeFloat1 25s ease-in-out infinite reverse; width: 5px; height: 5px; background: rgba(241,171,28,0.2); }
+  .node-5 { bottom: 20%; left: 25%; animation: nodeFloat2 20s ease-in-out infinite; width: 3px; height: 3px; background: rgba(241,171,28,0.35); }
+  .diamond { position: absolute; width: 14px; height: 14px; border: 1px solid rgba(241,171,28,0.2); border-radius: 2px; transform: rotate(45deg); animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+  .diamond-1 { top: 30%; right: 15%; animation: diamondDrift1 30s ease-in-out infinite; }
+  .diamond-2 { bottom: 35%; left: 10%; animation: diamondDrift2 24s ease-in-out infinite; width: 10px; height: 10px; border-color: rgba(241,171,28,0.15); }
+  .diamond-3 { top: 60%; right: 40%; animation: diamondDrift1 35s ease-in-out infinite reverse; width: 18px; height: 18px; border-color: rgba(241,171,28,0.12); }
+  .crosshair { position: absolute; }
+  .crosshair::before, .crosshair::after { content: ''; position: absolute; background: rgba(241,171,28,0.1); }
+  .crosshair::before { width: 50px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .crosshair::after { width: 1px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .cross-1 { top: 20%; left: 20%; animation: crossFade 12s ease-in-out infinite; }
+  .cross-2 { bottom: 25%; right: 18%; animation: crossFade 16s ease-in-out infinite 4s; }
+  .glow-orb { position: absolute; border: none; border-radius: 50%; filter: blur(60px); animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+  .glow-1 { width: 250px; height: 250px; top: 10%; right: 5%; background: rgba(241,171,28,0.06); animation: orbPulse 20s ease-in-out infinite; }
+  .glow-2 { width: 200px; height: 200px; bottom: 15%; left: 8%; background: rgba(241,171,28,0.05); animation: orbPulse 25s ease-in-out infinite 8s; }
+
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes nodeFloat1 { 0%, 100% { transform: translate(0, 0); opacity: 0.4; } 25% { transform: translate(30px, -20px); opacity: 1; } 50% { transform: translate(-10px, -40px); opacity: 0.6; } 75% { transform: translate(-25px, 15px); opacity: 0.9; } }
+  @keyframes nodeFloat2 { 0%, 100% { transform: translate(0, 0); opacity: 0.5; } 33% { transform: translate(-20px, 30px); opacity: 1; } 66% { transform: translate(25px, -15px); opacity: 0.3; } }
+  @keyframes nodeFloat3 { 0%, 100% { transform: translate(0, 0); opacity: 0.3; } 50% { transform: translate(15px, 25px); opacity: 0.8; } }
+  @keyframes diamondDrift1 { 0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; } 50% { transform: rotate(45deg) translate(20px, -30px); opacity: 1; } }
+  @keyframes diamondDrift2 { 0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.6; } 50% { transform: rotate(45deg) translate(-15px, 20px); opacity: 0.3; } }
+  @keyframes crossFade { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  @keyframes orbPulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.3); opacity: 1; } }
+
+  @media (max-width: 768px) {
+    .orbit-3, .diamond-3, .node-4, .cross-2, .glow-2 { display: none; }
+    .orbit-1 { width: 400px; height: 400px; }
+    .orbit-2 { width: 300px; height: 300px; }
+  }
+  @media (max-width: 480px) {
+    .orbit-2, .diamond-2, .node-3, .node-5 { display: none; }
+    .orbit-1 { width: 300px; height: 300px; top: -100px; right: -120px; }
+    .glow-1 { width: 120px; height: 120px; }
+  }
+
+  /* ========== SPLASH ========== */
+  .splash { position: fixed; inset: 0; z-index: 10000; background: var(--black); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.6s ease, visibility 0.6s ease; }
+  .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .splash-inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 2rem; }
+  .splash-logo { width: 54px; height: 54px; border-radius: 50%; margin-bottom: 0.25rem; animation: splashPulse 2.5s ease infinite; overflow: hidden; }
+  .splash-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .splash-wordmark { font-weight: 500; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-muted); }
+  .splash-wordmark span { color: var(--mango); }
+  .splash-thesis { font-weight: 300; font-style: italic; font-size: clamp(1rem, 3vw, 1.2rem); color: var(--white-dim); margin-top: 2.5rem; line-height: 1.5; }
+  .splash-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.75rem 2.25rem; background: var(--mango); color: var(--black); border: none; border-radius: 100px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 0 40px rgba(241,171,28,0.2); transition: all 0.3s ease; letter-spacing: 0.02em; }
+  .splash-btn:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(241,171,28,0.35); }
+  .splash-btn svg { width: 14px; height: 14px; }
+  @keyframes splashPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(241,171,28,0.3); } 50% { box-shadow: 0 0 0 18px rgba(241,171,28,0); } }
+
+  /* ========== AUDIO TOGGLE ========== */
+  .audio-btn { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; width: 40px; height: 40px; background: transparent; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; opacity: 0.35; transition: opacity 0.3s ease; }
+  .audio-btn:hover { opacity: 0.8; }
+  .audio-btn svg { width: 18px; height: 18px; }
+  .audio-btn .icon-playing, .audio-btn .icon-muted { display: none; }
+  .audio-btn.playing .icon-playing { display: block; }
+  .audio-btn.playing .icon-muted { display: none; }
+  .audio-btn.muted .icon-playing { display: none; }
+  .audio-btn.muted .icon-muted { display: block; }
+
+  /* ========== NAV ========== */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(24px); background: rgba(10,10,10,0.75); border-bottom: 1px solid var(--black-border); }
+  .nav-brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .nav-logo { width: 30px; height: 30px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .nav-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nav-wordmark { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); }
+  .nav-wordmark span { color: var(--mango); }
+  .nav-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white-dim); border: 1px solid var(--black-border); padding: 0.3rem 0.8rem; border-radius: 100px; font-weight: 300; }
+
+  /* ========== HERO ========== */
+  .hero { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 7rem 1.5rem 4rem; position: relative; z-index: 2; }
+  .hero::after { content: ''; position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%); width: min(600px, 100vw); height: 600px; background: radial-gradient(circle, var(--mango-glow) 0%, transparent 70%); pointer-events: none; filter: blur(100px); opacity: 0.35; }
+  .hero-eyebrow { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mango); margin-bottom: 1.75rem; width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.75rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; font-weight: 500; }
+  .hero-eyebrow::before, .hero-eyebrow::after { content: ''; width: 30px; height: 1px; background: var(--mango); opacity: 0.4; flex-shrink: 0; }
+  .hero-portrait { width: 160px; height: 160px; border-radius: 50%; overflow: hidden; margin-bottom: 2rem; border: 3px solid var(--mango); box-shadow: 0 0 60px rgba(241,171,28,0.2); opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
+  .hero-portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-name { font-size: clamp(2.8rem, 9vw, 7.5rem); line-height: 0.95; font-weight: 700; color: var(--white); margin: 0 auto 1.25rem; width: 100%; text-align: center; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+  .hero-name em { font-style: italic; color: var(--mango); font-weight: 700; }
+  .hero-tagline { font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 300; color: var(--white-muted); max-width: 520px; width: 100%; line-height: 1.75; margin: 0 auto 2.5rem; padding: 0 0.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
+  .hero-meta { display: flex; gap: clamp(1.5rem, 5vw, 3rem); justify-content: center; width: 100%; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
+  .meta-item { text-align: center; }
+  .meta-value { font-size: clamp(1.4rem, 3.5vw, 1.8rem); color: var(--mango); font-weight: 700; }
+  .meta-label { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white-dim); margin-top: 0.2rem; font-weight: 300; }
+  .scroll-indicator { position: absolute; bottom: 2rem; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 1s; }
+  .scroll-indicator span { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white-dim); font-weight: 300; }
+  .scroll-line { width: 1px; height: 35px; background: linear-gradient(to bottom, var(--mango), transparent); animation: scrollPulse 2s ease infinite; }
+
+  /* ========== SHARED ========== */
+  .container { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; position: relative; z-index: 2; }
+  .section-divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, var(--black-border), var(--mango-deep), var(--black-border), transparent); }
+  .section-eyebrow { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--mango); margin-bottom: 0.85rem; font-weight: 500; }
+  .section-title { font-size: clamp(1.75rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 0.65rem; }
+  .section-title em { font-style: italic; color: var(--mango); }
+  .section-subtitle { font-size: clamp(0.88rem, 2vw, 1rem); font-weight: 300; color: var(--white-dim); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; }
+
+  /* ========== EPISODE ========== */
+  .episode-card { border-radius: 14px; overflow: hidden; border: 1px solid var(--black-border); background: var(--black-card); position: relative; box-shadow: 0 0 80px rgba(241,171,28,0.04); }
+  .episode-card::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 3px; background: linear-gradient(to right, transparent, var(--mango), transparent); z-index: 2; }
+  .gdrive-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: var(--black-elevated); }
+  .gdrive-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .episode-bar { padding: 1.25rem 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; border-top: 1px solid var(--black-border); }
+  .episode-details { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .ep-detail { display: flex; flex-direction: column; gap: 0.1rem; }
+  .ep-detail-label { font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white-dim); font-weight: 300; }
+  .ep-detail-value { font-size: 1rem; color: var(--white); font-weight: 700; }
+
+  /* ========== HIGHLIGHTS ========== */
+  .highlights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); justify-content: center; gap: 1rem; }
+  .h-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; transition: all 0.4s cubic-bezier(0.2, 0, 0, 1); position: relative; }
+  .h-card:hover { border-color: rgba(241,171,28,0.25); transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(241,171,28,0.04); }
+  .h-number { position: absolute; top: 0.75rem; left: 0.75rem; z-index: 3; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mango); background: rgba(10,10,10,0.88); backdrop-filter: blur(10px); padding: 0.25rem 0.6rem; border-radius: 100px; border: 1px solid rgba(241,171,28,0.15); font-weight: 500; }
+  .h-video { position: relative; padding-bottom: 177.77%; background: var(--black-elevated); overflow: hidden; }
+  .h-video iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  .h-body { padding: 1rem 1.25rem 1.25rem; }
+  .h-caption { font-size: 0.85rem; line-height: 1.65; color: var(--white-muted); font-weight: 300; }
+
+  /* ========== MUSIC ========== */
+  .m-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 12px; overflow: hidden; max-width: 460px; transition: all 0.4s cubic-bezier(0.2, 0, 0, 1); }
+  .m-card:hover { border-color: rgba(241,171,28,0.25); transform: translateY(-2px); }
+  .m-header { padding: 1.5rem 1.5rem 1rem; display: flex; align-items: center; gap: 1rem; }
+  .m-icon { width: 48px; height: 48px; border-radius: 10px; background: linear-gradient(135deg, var(--mango), var(--mango-deep)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .m-icon svg { width: 20px; height: 20px; fill: var(--black); }
+  .m-meta { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+  .m-title { font-size: 1.1rem; color: var(--white); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .m-subtitle { font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white-dim); font-weight: 300; }
+  .m-embed { padding: 0 1.15rem 1.15rem; }
+  .m-embed iframe { border: none; border-radius: 8px; width: 100%; }
+
+  /* ========== AUTOMATION WORKFLOWS ========== */
+  .auto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .auto-card { background: var(--black-card); border: 1px solid var(--black-border); border-radius: 14px; padding: 1.75rem; transition: all 0.4s cubic-bezier(0.2, 0, 0, 1); position: relative; overflow: hidden; }
+  .auto-card::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 2px; background: linear-gradient(to right, transparent, var(--mango), transparent); }
+  .auto-card:hover { border-color: rgba(241,171,28,0.25); transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(241,171,28,0.04); }
+  .auto-number { display: inline-block; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mango); background: rgba(241,171,28,0.1); padding: 0.3rem 0.75rem; border-radius: 100px; border: 1px solid rgba(241,171,28,0.15); margin-bottom: 1rem; }
+  .auto-title { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; line-height: 1.3; }
+  .auto-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin-bottom: 1.25rem; }
+  .auto-node { font-size: 0.6rem; font-weight: 500; color: var(--white); background: var(--black-elevated); border: 1px solid var(--black-border); padding: 0.3rem 0.6rem; border-radius: 6px; white-space: nowrap; }
+  .auto-arrow { color: var(--mango); font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
+  .auto-desc { font-size: 0.82rem; font-weight: 300; color: var(--white-muted); line-height: 1.65; margin-bottom: 0.75rem; }
+  .auto-impact { font-size: 0.78rem; font-weight: 300; color: var(--mango); line-height: 1.6; font-style: italic; padding-left: 0.75rem; border-left: 2px solid rgba(241,171,28,0.3); }
+
+  /* ========== CTA ========== */
+  .cta-banner { text-align: center; padding: 4.5rem 1.5rem; position: relative; z-index: 2; }
+  .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(500px, 90vw); height: 300px; background: radial-gradient(circle, var(--mango-glow), transparent 70%); filter: blur(80px); opacity: 0.25; pointer-events: none; }
+  .cta-text { font-size: clamp(1.35rem, 3.5vw, 2.4rem); font-weight: 700; color: var(--white); max-width: 550px; margin: 0 auto 1.75rem; line-height: 1.3; position: relative; text-align: center; }
+  .cta-text em { font-style: italic; color: var(--mango); }
+  .cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; background: var(--mango); color: var(--black); border: none; border-radius: 100px; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.3s ease; position: relative; letter-spacing: 0.02em; box-shadow: 0 0 30px rgba(241,171,28,0.2); }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(241,171,28,0.35); }
+  .cta-btn svg { width: 14px; height: 14px; }
+
+  /* ========== FOOTER ========== */
+  footer { padding: 3.5rem 1.5rem; text-align: center; border-top: 1px solid var(--black-border); position: relative; z-index: 2; }
+  .f-brand { display: flex; align-items: center; justify-content: center; gap: 0.55rem; margin-bottom: 1rem; }
+  .f-logo { width: 24px; height: 24px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+  .f-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .f-wordmark { font-weight: 500; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white-muted); }
+  .f-thesis { font-weight: 300; font-style: italic; font-size: 1rem; color: var(--white-dim); margin-bottom: 0.75rem; }
+  .f-copy { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--white-dim); font-weight: 300; }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0, 0, 1); }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    nav { padding: 0.85rem 1.25rem; }
+    .nav-logo { width: 28px; height: 28px; }
+    .nav-wordmark { font-size: 0.78rem; }
+    .nav-label { font-size: 0.55rem; padding: 0.25rem 0.65rem; }
+    .hero { padding: 6rem 1.25rem 3.5rem; }
+    .hero-portrait { width: 120px; height: 120px; }
+    .hero-eyebrow { font-size: 0.55rem; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+    .hero-tagline { margin: 0 auto 2rem; }
+    .container { padding: 3.5rem 1.25rem; }
+    .section-subtitle { margin-bottom: 2rem; }
+    .highlights-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; }
+    .episode-bar { flex-direction: column; align-items: flex-start; }
+    .episode-details { gap: 1.5rem; }
+    .m-card { max-width: 100%; }
+    .auto-grid { grid-template-columns: 1fr; }
+    .cta-banner { padding: 3.5rem 1.25rem; }
+    .scroll-indicator { bottom: 1.5rem; }
+    .scroll-line { height: 25px; }
+  }
+  @media (max-width: 480px) {
+    .nav-label { display: none; }
+    .nav-wordmark { font-size: 0.72rem; }
+    .hero { padding: 5.5rem 1rem 3rem; min-height: 100dvh; }
+    .hero-portrait { width: 100px; height: 100px; }
+    .hero-name { line-height: 1; margin: 0 auto 1rem; }
+    .hero-meta { gap: 1.25rem; }
+    .meta-label { font-size: 0.5rem; letter-spacing: 0.12em; }
+    .container { padding: 3rem 1rem; }
+    .section-eyebrow { font-size: 0.55rem; }
+    .episode-details { gap: 1.25rem; }
+    .ep-detail-value { font-size: 0.92rem; }
+    .h-body { padding: 0.85rem 1rem 1rem; }
+    .h-caption { font-size: 0.82rem; }
+    .m-header { padding: 1.25rem 1.15rem 0.85rem; gap: 0.85rem; }
+    .m-icon { width: 42px; height: 42px; border-radius: 8px; }
+    .m-icon svg { width: 18px; height: 18px; }
+    .m-title { font-size: 1rem; }
+    .m-embed { padding: 0 1rem 1rem; }
+    .audio-btn { bottom: 1rem; right: 1rem; }
+    .scroll-indicator span { font-size: 0.5rem; }
+    .highlights-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  }
+  @media (max-width: 360px) {
+    .hero { padding: 5rem 0.85rem 2.5rem; }
+    .hero-eyebrow { font-size: 0.5rem; letter-spacing: 0.18em; }
+    .hero-meta { flex-wrap: wrap; gap: 1rem; }
+    .container { padding: 2.5rem 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="https://drive.google.com/uc?export=download&id=1XWzGeyNWG2aH_tyxsN5s0vIkkUS18tpy" type="audio/mpeg">
+</audio>
+
+<!-- AMBIENT SHAPES -->
+<div class="ambient" aria-hidden="true">
+  <div class="ambient-shape orbit-1"></div>
+  <div class="ambient-shape orbit-2"></div>
+  <div class="ambient-shape orbit-3"></div>
+  <div class="node node-1"></div>
+  <div class="node node-2"></div>
+  <div class="node node-3"></div>
+  <div class="node node-4"></div>
+  <div class="node node-5"></div>
+  <div class="diamond diamond-1"></div>
+  <div class="diamond diamond-2"></div>
+  <div class="diamond diamond-3"></div>
+  <div class="crosshair cross-1"></div>
+  <div class="crosshair cross-2"></div>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+</div>
+
+<!-- SPLASH -->
+<div class="splash" id="splash" onclick="enterSite()">
+  <div class="splash-inner">
+    <div class="splash-logo"><img src="https://raw.githubusercontent.com/mango-magic/featured/main/logo.png" alt="MangoMagic"></div>
+    <div class="splash-wordmark">Mango<span>Magic</span> Live</div>
+    <div class="splash-thesis">Amplifying human signal with AI</div>
+    <button class="splash-btn">
+      Enter
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- AUDIO TOGGLE -->
+<button class="audio-btn playing" id="audioBtn" onclick="toggleAudio()">
+  <svg class="icon-playing" viewBox="0 0 24 24" fill="none" stroke="var(--white-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+  </svg>
+  <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="var(--white-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <line x1="23" y1="9" x2="17" y2="15"/>
+    <line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+</button>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo"><img src="https://raw.githubusercontent.com/mango-magic/featured/main/logo.png" alt="MangoMagic"></div>
+    <div class="nav-wordmark">Mango<span>Magic</span></div>
+  </a>
+  <div class="nav-label">MangoMagic Live</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">MangoMagic Live - Episode</div>
+  <div class="hero-portrait">
+    <img src="https://drive.google.com/thumbnail?id=1Pg1P1Ig3CsVtRYb2SZH20QXODOCC01JH&sz=w400" alt="Matthew Leone">
+  </div>
+  <h1 class="hero-name">Magic <em>Matthew Leone</em></h1>
+  <p class="hero-tagline">Transforming automotive sales and business operations through AI-powered automation workflows, CRM intelligence, and voice-driven technology.</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-value">26</div>
+      <div class="meta-label">Highlights</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-value">10</div>
+      <div class="meta-label">Automations</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-value">1</div>
+      <div class="meta-label">Track</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Watch below</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- SPEAKER INTRODUCTION -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Speaker Introduction</div>
+  <h2 class="section-title">Meet <em>Matthew</em></h2>
+  <p class="section-subtitle">Get to know Matthew Leone and discover how he leverages AI and automation to revolutionise business processes.</p>
+  <div class="episode-card">
+    <div class="gdrive-embed">
+      <iframe src="https://drive.google.com/file/d/1mDopHp6Y-BYd22uP5A308vlopF0EY43e/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="episode-bar">
+      <div class="episode-details">
+        <div class="ep-detail">
+          <span class="ep-detail-label">Guest</span>
+          <span class="ep-detail-value">Matthew Leone</span>
+        </div>
+        <div class="ep-detail">
+          <span class="ep-detail-label">Section</span>
+          <span class="ep-detail-value">Introduction</span>
+        </div>
+        <div class="ep-detail">
+          <span class="ep-detail-label">Format</span>
+          <span class="ep-detail-value">MangoMagic Live</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL INTERVIEW -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Full Interview</div>
+  <h2 class="section-title">The complete <em>conversation</em></h2>
+  <p class="section-subtitle">Matthew Leone dives deep into AI-driven automation, sharing how intelligent workflows are reshaping automotive sales, customer engagement, and operational efficiency.</p>
+  <div class="episode-card">
+    <div class="gdrive-embed">
+      <iframe src="https://drive.google.com/file/d/19jfWCOKsj17oLriW7nKyQpAXNaPtHHeu/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="episode-bar">
+      <div class="episode-details">
+        <div class="ep-detail">
+          <span class="ep-detail-label">Guest</span>
+          <span class="ep-detail-value">Matthew Leone</span>
+        </div>
+        <div class="ep-detail">
+          <span class="ep-detail-label">Section</span>
+          <span class="ep-detail-value">Full Interview</span>
+        </div>
+        <div class="ep-detail">
+          <span class="ep-detail-label">Format</span>
+          <span class="ep-detail-value">MangoMagic Live</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HIGHLIGHTS -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Highlight Reel</div>
+  <h2 class="section-title">The moments that <em>hit</em></h2>
+  <p class="section-subtitle">Twenty-six standout moments from the conversation covering AI automation, voice assistants, inventory matching, lead scoring, and more.</p>
+  <div class="highlights-grid">
+
+    <div class="h-card">
+      <div class="h-number">Clip 1</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1NQ9jRDM-3ouC4am8Yltz5x6RWuGp65-d/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 2</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1ymtpIKZrvLIUDynHUe-Cwef-43KprG08/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 3</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1fnrzGBHG8Nl2B89rAxOaZ-jFzc1pIpxh/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 4</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1gumC01_mq65AQnkHnke4JfCPvsOTXob8/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 5</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/17DniaEN1HdwTSF68ykgqpNoA51bPL3ln/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 6</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1UXUkiptUBdFgsli1_LHARUI_ALseqpD8/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 7</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1FXKwK7Gw5wXAY--UVul66VrOQWrYo0c2/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 8</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1BVigXrxr_sS8ZzAKl0f00V1R-ZQQcyhd/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 9</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/14p6jSkw1tnkbbGsEPzYjNeK_TzoIZ1Rn/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 10</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1H5xrwDNNQxW4MW5GrHSywoCcuCD-h7mY/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 11</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1blcbLxUfFohruRYqV58R1STXgzLCGMtR/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 12</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1AdU92S1OCXxTxIZVInll95L66nHWl2Id/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 13</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/15iT84Xgxl_CGCkXYqili19dKMV6W_bMq/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 14</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1rKzPOIxq-qMwdXvEGlOGsqSqZXCq7BCs/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 15</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1obVN-B5TtvFK5ZsKXp_tMHh-0oMb4S9N/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 16</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1bNIW6B59IDHgCbcve_ODRVCmLEyssGVE/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 17</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1YG8HQAFpSQXArf13N-GGuhmhrKeAt0mg/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 18</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1eR2WksoJOk35E9UDQrjRHXYvNd6X0ebf/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 19</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1Q3JM-BN3xlx8qR-68HsICksHYOkzR8M9/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 20</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1CSZwTK1cbX174zTHMaSCCuo6nIaH1fsn/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 21</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1GsozGP3SxXu2mtNFA6g4Yc3PtfJVIcEa/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 22</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1lbr6fdywMzQJ6UhnNw_qTG9_dpX3Bwfh/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 23</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1_NhhHDgnzAuPafNbWKkd-qQfIxmkPiaF/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 24</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/18qprJCI6E1hdSMMKodn8NSrYYG2VIo2R/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 25</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1fdRXj3T66NUsjEJ6nJi7jOI97yffmFlK/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 26</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/10Gj6j3pXn7Xvsq7Yz0ApNv8HtXWik1-P/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AUTOMATION WORKFLOWS -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Automation Workflows</div>
+  <h2 class="section-title">Matthew's <em>automation magic</em></h2>
+  <p class="section-subtitle">Ten powerful AI-driven workflows that Matthew discussed, transforming how businesses operate from sales to customer engagement.</p>
+  <div class="auto-grid">
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 1</div>
+      <div class="auto-title">Cost of Goods Sold Calculation</div>
+      <div class="auto-flow">
+        <span class="auto-node">Google Sheets</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI API</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Google Sheets</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Logger</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Backup</span>
+      </div>
+      <div class="auto-desc">Automates cost adjustment calculations for new product line features using AI, enabling quicker decision-making.</div>
+      <div class="auto-impact">Reduces reliance on finance teams for basic calculations and accelerates response time.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 2</div>
+      <div class="auto-title">Dynamic Reporting Generation</div>
+      <div class="auto-flow">
+        <span class="auto-node">Google Sheets</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI NLP</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Data Retrieval</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Report Generator</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Save</span>
+      </div>
+      <div class="auto-desc">Automatically generates customized reports based on user queries, significantly streamlining the reporting process.</div>
+      <div class="auto-impact">Eliminates manual report creation and increases efficiency for sales teams.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 3</div>
+      <div class="auto-title">Genius Voice Assist Integration</div>
+      <div class="auto-flow">
+        <span class="auto-node">Voice Input</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Voice Recognition</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI Intent</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">DB Query</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Response Gen</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span>
+      </div>
+      <div class="auto-desc">Enables users to interact with the CRM using voice commands to access appointment details quickly and efficiently.</div>
+      <div class="auto-impact">Enhances user experience by providing immediate, hands-free access to information.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 4</div>
+      <div class="auto-title">Inventory Matching via Natural Language</div>
+      <div class="auto-flow">
+        <span class="auto-node">User Input</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI NLP</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Inventory DB</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Log</span>
+      </div>
+      <div class="auto-desc">Finds the best vehicle matches based on user-provided criteria through natural language queries, improving the sales process.</div>
+      <div class="auto-impact">Reduces search time for sales personnel and optimizes customer engagement with accurate vehicle matches.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 5</div>
+      <div class="auto-title">Automated Customer Follow-ups</div>
+      <div class="auto-flow">
+        <span class="auto-node">CRM Trigger</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI Draft</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Log</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">SMS</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Webhooks</span>
+      </div>
+      <div class="auto-desc">Automates the follow-up process with new customers, ensuring timely communication and engagement.</div>
+      <div class="auto-impact">Minimizes manual follow-up efforts, increasing the chances of converting leads into sales.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 6</div>
+      <div class="auto-title">Lead Scoring and Assignment</div>
+      <div class="auto-flow">
+        <span class="auto-node">CRM Trigger</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI Score</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">DB Update</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Log</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Webhooks</span>
+      </div>
+      <div class="auto-desc">Scores leads based on defined criteria and assigns them to the appropriate sales representative automatically.</div>
+      <div class="auto-impact">Improves lead management efficiency and ensures timely responses to potential customers.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 7</div>
+      <div class="auto-title">AI-Driven Customer Profiling</div>
+      <div class="auto-flow">
+        <span class="auto-node">CRM Data</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI Analyze</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">DB Update</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Backup</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Webhooks</span>
+      </div>
+      <div class="auto-desc">Analyzes customer data to update profiles and provide insights for targeted marketing strategies.</div>
+      <div class="auto-impact">Enhances marketing effectiveness by ensuring the right campaigns reach the right audience based on behavior analysis.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 8</div>
+      <div class="auto-title">Real-time Sales Data Logging</div>
+      <div class="auto-flow">
+        <span class="auto-node">Sales Trigger</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">API Call</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">DB Log</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Daily Backup</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Webhooks</span>
+      </div>
+      <div class="auto-desc">Logs sales data in real-time for accurate tracking and reporting purposes.</div>
+      <div class="auto-impact">Reduces errors in sales data collection and improves visibility into sales performance.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 9</div>
+      <div class="auto-title">Marketing Campaign Optimization</div>
+      <div class="auto-flow">
+        <span class="auto-node">Campaign Trigger</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI Analyze</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Engagement Data</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Recommendations</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Log</span>
+      </div>
+      <div class="auto-desc">Automatically analyzes campaign performance and suggests optimizations based on customer engagement data.</div>
+      <div class="auto-impact">Increases the effectiveness of marketing activities by ensuring data-driven adjustments.</div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-number">Automation 10</div>
+      <div class="auto-title">Customer Feedback Gathering</div>
+      <div class="auto-flow">
+        <span class="auto-node">CRM Trigger</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Email Request</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">DB Log</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">OpenAI Analyze</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Slack</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Formatter</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Error Handler</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">QC</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Store</span><span class="auto-arrow">&rarr;</span>
+        <span class="auto-node">Webhooks</span>
+      </div>
+      <div class="auto-desc">Automates the gathering, analysis, and logging of customer feedback post-purchase to inform product improvements.</div>
+      <div class="auto-impact">Enhances customer satisfaction and product quality through timely feedback integration.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MUSIC -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Original Soundtrack</div>
+  <h2 class="section-title">Made for <em>Matthew</em></h2>
+  <p class="section-subtitle">Every MangoMagic Live guest gets their own original track. This one was composed specifically for this episode.</p>
+  <div class="m-card">
+    <div class="m-header">
+      <div class="m-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="m-meta">
+        <div class="m-title">Matthew's Automation Anthem</div>
+        <div class="m-subtitle">Original - Matthew Leone Episode</div>
+      </div>
+    </div>
+    <div class="m-embed">
+      <iframe src="https://drive.google.com/file/d/1XWzGeyNWG2aH_tyxsN5s0vIkkUS18tpy/preview" width="100%" height="80" allow="autoplay" style="border:none;border-radius:8px;"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS CLIP -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Bonus</div>
+  <h2 class="section-title">One more <em>moment</em></h2>
+  <p class="section-subtitle">An extra clip from the session.</p>
+  <div class="episode-card">
+    <div class="gdrive-embed">
+      <iframe src="https://drive.google.com/file/d/11zJnsoGDLN5m0LCNW7pMQtfPLuId8RUv/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="section-divider"></div>
+<div class="cta-banner fade-in">
+  <div class="cta-text">Want to bring <em>your signal</em> to MangoMagic Live?</div>
+  <a href="https://magic.manymangoes.com.au/apply-speaker" class="cta-btn">
+    Apply to be a guest
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<div class="section-divider"></div>
+<footer>
+  <div class="f-brand">
+    <div class="f-logo"><img src="https://raw.githubusercontent.com/mango-magic/featured/main/logo.png" alt="ManyMangoes"></div>
+    <div class="f-wordmark">ManyMangoes</div>
+  </div>
+  <div class="f-thesis">The future of content is human.</div>
+  <div class="f-copy">&copy; 2025 Made with ❤️ by ManyMangoes</div>
+</footer>
+
+<!-- CHAT TARGET -->
+<div id="n8n-chat"></div>
+
+<script>
+  const audio = document.getElementById('bgAudio');
+  const splash = document.getElementById('splash');
+  const btn = document.getElementById('audioBtn');
+  let playing = false;
+
+  function enterSite() {
+    splash.classList.add('hidden');
+    btn.style.display = 'flex';
+    audio.volume = 0.3;
+    audio.play().then(() => {
+      playing = true;
+      btn.classList.add('playing');
+      btn.classList.remove('muted');
+    }).catch(() => {
+      playing = false;
+      btn.classList.remove('playing');
+      btn.classList.add('muted');
+    });
+  }
+
+  function toggleAudio() {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      btn.classList.remove('playing');
+      btn.classList.add('muted');
+    } else {
+      audio.play().then(() => {
+        playing = true;
+        btn.classList.add('playing');
+        btn.classList.remove('muted');
+      });
+    }
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Ambient parallax
+  const ambient = document.querySelector('.ambient');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const s = window.scrollY;
+        const orbits = ambient.querySelectorAll('.ambient-shape');
+        const nodes = ambient.querySelectorAll('.node');
+        const diamonds = ambient.querySelectorAll('.diamond');
+        orbits.forEach((el, i) => {
+          el.style.transform = 'rotate(' + (s * (0.02 + i * 0.01)) + 'deg) translateY(' + (s * (0.03 + i * 0.01)) + 'px)';
+        });
+        nodes.forEach((el, i) => {
+          el.style.marginTop = (Math.sin(s * 0.003 + i) * 15) + 'px';
+        });
+        diamonds.forEach((el, i) => {
+          var drift = Math.sin(s * 0.002 + i * 2) * 10;
+          el.style.marginLeft = drift + 'px';
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+</script>
+
+<!-- n8n Chat Widget -->
+<script type="module">
+  try {
+    const { createChat } = await import('https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js');
+    createChat({
+      webhookUrl: 'https://automations.manymangoes.com.au/webhook/b143fb48-a8e0-470a-843c-d8d14d226216/chat',
+      target: '#n8n-chat',
+      mode: 'window',
+      showWelcomeScreen: false,
+      loadPreviousSession: false,
+      initialMessages: [
+        'Hi there! \uD83D\uDC4B',
+        'Ask me anything about his automation magic!'
+      ],
+      i18n: {
+        en: {
+          title: 'Oh hey! \uD83D\uDC4B',
+          subtitle: 'Are you ready for some magic?!',
+          getStarted: 'Start Chat',
+          inputPlaceholder: 'Type your message...',
+        },
+      },
+    });
+
+    const waitForWidget = setInterval(() => {
+      try {
+        const widget = document.querySelector('n8n-chat');
+        if (!widget || !widget.shadowRoot) return;
+        const shadow = widget.shadowRoot;
+        const poweredBy = shadow.querySelector('.chat-powered-by');
+        if (poweredBy) {
+          poweredBy.remove();
+          clearInterval(waitForWidget);
+        }
+      } catch (error) {
+        console.log('Error customizing chat widget:', error);
+      }
+    }, 500);
+
+    setTimeout(() => clearInterval(waitForWidget), 10000);
+  } catch (error) {
+    console.log('Chat widget failed to load:', error);
+  }
+</script>
+
+</body>
+</html>
