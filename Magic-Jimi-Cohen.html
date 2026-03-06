@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jimi Cohen - MangoMagic Live</title>
+<meta name="description" content="Jimi Cohen joins MangoMagic Live to discuss the billion-tree mangrove initiative and funding through carbon credits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mango: #f1ab1c;
+    --mango-glow: #f1ab1c33;
+    --mango-deep: #d4940a;
+    --black: #0a0a0a;
+    --black-card: #111111;
+    --black-elevated: #161616;
+    --black-border: #1e1e1e;
+    --white: #f5f5f0;
+    --white-muted: #a0a09a;
+    --white-dim: #666660;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--mango) var(--black); }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black); color: var(--white);
+    overflow-x: hidden; -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ''; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9998;
+  }
+
+  /* ========== AMBIENT SHAPES ========== */
+  .ambient {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none; overflow: hidden;
+  }
+  .ambient-shape {
+    position: absolute;
+    border: 1px solid rgba(241,171,28,0.18);
+    border-radius: 50%;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  /* Orbital rings */
+  .orbit-1 {
+    width: 600px; height: 600px;
+    top: -150px; right: -200px;
+    animation: orbitSpin 90s linear infinite;
+  }
+  .orbit-2 {
+    width: 450px; height: 450px;
+    bottom: -100px; left: -150px;
+    border-color: rgba(241,171,28,0.12);
+    animation: orbitSpin 120s linear infinite reverse;
+  }
+  .orbit-3 {
+    width: 300px; height: 300px;
+    top: 40%; left: 60%;
+    border-color: rgba(241,171,28,0.09);
+    animation: orbitSpin 70s linear infinite;
+  }
+  /* Floating geometric nodes */
+  .node {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: rgba(241,171,28,0.4);
+    border: none; border-radius: 50%;
+    box-shadow: 0 0 12px rgba(241,171,28,0.3);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .node-1 { top: 15%; left: 8%; animation: nodeFloat1 18s ease-in-out infinite; }
+  .node-2 { top: 70%; right: 12%; animation: nodeFloat2 22s ease-in-out infinite; }
+  .node-3 { top: 45%; left: 75%; animation: nodeFloat3 15s ease-in-out infinite; width: 4px; height: 4px; background: rgba(241,171,28,0.3); }
+  .node-4 { top: 25%; right: 30%; animation: nodeFloat1 25s ease-in-out infinite reverse; width: 5px; height: 5px; background: rgba(241,171,28,0.2); }
+  .node-5 { bottom: 20%; left: 25%; animation: nodeFloat2 20s ease-in-out infinite; width: 3px; height: 3px; background: rgba(241,171,28,0.35); }
+  /* Diamond shapes */
+  .diamond {
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid rgba(241,171,28,0.2);
+    border-radius: 2px;
+    transform: rotate(45deg);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .diamond-1 { top: 30%; right: 15%; animation: diamondDrift1 30s ease-in-out infinite; }
+  .diamond-2 { bottom: 35%; left: 10%; animation: diamondDrift2 24s ease-in-out infinite; width: 10px; height: 10px; border-color: rgba(241,171,28,0.15); }
+  .diamond-3 { top: 60%; right: 40%; animation: diamondDrift1 35s ease-in-out infinite reverse; width: 18px; height: 18px; border-color: rgba(241,171,28,0.12); }
+  /* Thin crosshair lines */
+  .crosshair {
+    position: absolute;
+  }
+  .crosshair::before, .crosshair::after {
+    content: ''; position: absolute;
+    background: rgba(241,171,28,0.1);
+  }
+  .crosshair::before { width: 50px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .crosshair::after { width: 1px; height: 50px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .cross-1 { top: 20%; left: 20%; animation: crossFade 12s ease-in-out infinite; }
+  .cross-2 { bottom: 25%; right: 18%; animation: crossFade 16s ease-in-out infinite 4s; }
+  /* Soft glow orbs */
+  .glow-orb {
+    position: absolute; border: none; border-radius: 50%;
+    filter: blur(60px);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  .glow-1 {
+    width: 250px; height: 250px;
+    top: 10%; right: 5%;
+    background: rgba(241,171,28,0.06);
+    animation: orbPulse 20s ease-in-out infinite;
+  }
+  .glow-2 {
+    width: 200px; height: 200px;
+    bottom: 15%; left: 8%;
+    background: rgba(241,171,28,0.05);
+    animation: orbPulse 25s ease-in-out infinite 8s;
+  }
+
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes nodeFloat1 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+    25% { transform: translate(30px, -20px); opacity: 1; }
+    50% { transform: translate(-10px, -40px); opacity: 0.6; }
+    75% { transform: translate(-25px, 15px); opacity: 0.9; }
+  }
+  @keyframes nodeFloat2 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+    33% { transform: translate(-20px, 30px); opacity: 1; }
+    66% { transform: translate(25px, -15px); opacity: 0.3; }
+  }
+  @keyframes nodeFloat3 {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    50% { transform: translate(15px, 25px); opacity: 0.8; }
+  }
+  @keyframes diamondDrift1 {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+    50% { transform: rotate(45deg) translate(20px, -30px); opacity: 1; }
+  }
+  @keyframes diamondDrift2 {
+    0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.6; }
+    50% { transform: rotate(45deg) translate(-15px, 20px); opacity: 0.3; }
+  }
+  @keyframes crossFade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes orbPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+
+  /* Hide some shapes on mobile for performance */
+  @media (max-width: 768px) {
+    .orbit-3, .diamond-3, .node-4, .cross-2, .glow-2 { display: none; }
+    .orbit-1 { width: 400px; height: 400px; }
+    .orbit-2 { width: 300px; height: 300px; }
+  }
+  @media (max-width: 480px) {
+    .orbit-2, .diamond-2, .node-3, .node-5 { display: none; }
+    .orbit-1 { width: 300px; height: 300px; top: -100px; right: -120px; }
+    .glow-1 { width: 120px; height: 120px; }
+  }
+
+  /* ========== SPLASH ========== */
+  .splash {
+    position: fixed; inset: 0; z-index: 10000;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .splash-inner {
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    padding: 2rem;
+  }
+  .splash-logo {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    margin-bottom: 0.25rem;
+    animation: splashPulse 2.5s ease infinite;
+    overflow: hidden;
+  }
+  .splash-logo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .splash-wordmark {
+    font-weight: 500; font-size: 0.8rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-muted);
+  }
+  .splash-wordmark span { color: var(--mango); }
+  .splash-thesis {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-style: italic; color: var(--white-dim);
+    margin-top: 2.5rem; line-height: 1.5;
+  }
+  .splash-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin-top: 1.25rem; padding: 0.75rem 2.25rem;
+    background: var(--mango); color: var(--black);
+    border: none; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    box-shadow: 0 0 40px rgba(241,171,28,0.2);
+    transition: all 0.3s ease; letter-spacing: 0.02em;
+  }
+  .splash-btn:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(241,171,28,0.35); }
+  .splash-btn svg { width: 14px; height: 14px; }
+  @keyframes splashPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(241,171,28,0.3); }
+    50% { box-shadow: 0 0 0 18px rgba(241,171,28,0); }
+  }
+
+  /* ========== AUDIO TOGGLE ========== */
+  .audio-btn {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200;
+    width: 40px; height: 40px;
+    background: transparent; border: none; cursor: pointer;
+    display: none; align-items: center; justify-content: center;
+    opacity: 0.35;
+    transition: opacity 0.3s ease;
+  }
+  .audio-btn:hover { opacity: 0.8; }
+  .audio-btn svg { width: 18px; height: 18px; }
+  .audio-btn .icon-playing,
+  .audio-btn .icon-muted { display: none; }
+  .audio-btn.playing .icon-playing { display: block; }
+  .audio-btn.playing .icon-muted { display: none; }
+  .audio-btn.muted .icon-playing { display: none; }
+  .audio-btn.muted .icon-muted { display: block; }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    backdrop-filter: blur(24px);
+    background: rgba(10,10,10,0.75);
+    border-bottom: 1px solid var(--black-border);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.65rem; text-decoration: none;
+  }
+  .nav-logo {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .nav-logo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .nav-wordmark {
+    font-weight: 500; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--white);
+  }
+  .nav-wordmark span { color: var(--mango); }
+  .nav-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--white-dim);
+    border: 1px solid var(--black-border);
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 7rem 1.5rem 4rem;
+    position: relative;
+  }
+  .hero::after {
+    content: ''; position: absolute;
+    bottom: -100px; left: 50%; transform: translateX(-50%);
+    width: min(600px, 100vw); height: 600px;
+    background: radial-gradient(circle, var(--mango-glow) 0%, transparent 70%);
+    pointer-events: none; filter: blur(100px); opacity: 0.35;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--mango);
+    margin-bottom: 1.75rem; width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; width: 30px; height: 1px; background: var(--mango); opacity: 0.4;
+    flex-shrink: 0;
+  }
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.8rem, 9vw, 7.5rem);
+    line-height: 0.95; font-weight: 400; color: var(--white);
+    margin: 0 auto 1.25rem; width: 100%; text-align: center;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+  .hero-name em { font-style: italic; color: var(--mango); }
+  .hero-tagline {
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem); font-weight: 300;
+    color: var(--white-muted);
+    max-width: 520px; width: 100%; line-height: 1.75;
+    margin: 0 auto 2.5rem; padding: 0 0.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+  .hero-meta {
+    display: flex; gap: clamp(1.5rem, 5vw, 3rem); justify-content: center; width: 100%;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+  .meta-item { text-align: center; }
+  .meta-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.4rem, 3.5vw, 1.8rem); color: var(--mango);
+  }
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--white-dim); margin-top: 0.2rem;
+  }
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 0; right: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 1s;
+  }
+  .scroll-indicator span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--white-dim);
+  }
+  .scroll-line {
+    width: 1px; height: 35px;
+    background: linear-gradient(to bottom, var(--mango), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ========== SHARED ========== */
+  .container { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; }
+  .section-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--black-border), var(--mango-deep), var(--black-border), transparent);
+  }
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--mango); margin-bottom: 0.85rem;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.75rem, 4.5vw, 3.2rem);
+    font-weight: 400; line-height: 1.1; color: var(--white); margin-bottom: 0.65rem;
+  }
+  .section-title em { font-style: italic; color: var(--mango); }
+  .section-subtitle {
+    font-size: clamp(0.88rem, 2vw, 1rem); font-weight: 300;
+    color: var(--white-dim); max-width: 560px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+  }
+
+  /* ========== EPISODE ========== */
+  .episode-card {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--black-border);
+    background: var(--black-card); position: relative;
+    box-shadow: 0 0 80px rgba(241,171,28,0.04);
+  }
+  .episode-card::before {
+    content: ''; position: absolute;
+    top: -1px; left: -1px; right: -1px; height: 3px;
+    background: linear-gradient(to right, transparent, var(--mango), transparent); z-index: 2;
+  }
+  .gdrive-embed {
+    position: relative; padding-bottom: 56.25%;
+    height: 0; overflow: hidden; background: var(--black-elevated);
+  }
+  .gdrive-embed iframe {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; border: none;
+  }
+  .episode-bar {
+    padding: 1.25rem 1.5rem;
+    display: flex; flex-wrap: wrap;
+    justify-content: space-between; align-items: center; gap: 1rem;
+    border-top: 1px solid var(--black-border);
+  }
+  .episode-details { display: flex; gap: 2rem; flex-wrap: wrap; }
+  .ep-detail { display: flex; flex-direction: column; gap: 0.1rem; }
+  .ep-detail-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--white-dim);
+  }
+  .ep-detail-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem; color: var(--white);
+  }
+
+  /* ========== HIGHLIGHTS ========== */
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .h-card {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-radius: 12px; overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1); position: relative;
+  }
+  .h-card:hover {
+    border-color: rgba(241,171,28,0.25); transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(241,171,28,0.04);
+  }
+  .h-number {
+    position: absolute; top: 0.75rem; left: 0.75rem; z-index: 3;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--mango);
+    background: rgba(10,10,10,0.88); backdrop-filter: blur(10px);
+    padding: 0.25rem 0.6rem; border-radius: 100px;
+    border: 1px solid rgba(241,171,28,0.15);
+  }
+  .h-video {
+    position: relative; padding-bottom: 177.77%;
+    background: var(--black-elevated); overflow: hidden;
+  }
+  .h-video iframe {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; border: none;
+  }
+  .h-body { padding: 1rem 1.25rem 1.25rem; }
+  .h-caption {
+    font-size: 0.85rem; line-height: 1.65;
+    color: var(--white-muted); font-weight: 300;
+  }
+
+  /* ========== MUSIC ========== */
+  .m-card {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-radius: 12px; overflow: hidden;
+    max-width: 460px;
+    transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .m-card:hover { border-color: rgba(241,171,28,0.25); transform: translateY(-2px); }
+  .m-header {
+    padding: 1.5rem 1.5rem 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .m-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--mango), var(--mango-deep));
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .m-icon svg { width: 20px; height: 20px; fill: var(--black); }
+  .m-meta { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+  .m-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem; color: var(--white);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .m-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--white-dim);
+  }
+  .m-embed { padding: 0 1.15rem 1.15rem; }
+  .m-embed iframe { border: none; border-radius: 8px; width: 100%; }
+
+  /* ========== LYRICS ========== */
+  .lyrics-wrap { max-width: 750px; margin: 0 auto; }
+  .lyrics-box {
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-radius: 14px; overflow: hidden; position: relative;
+  }
+  .lyrics-box::before {
+    content: ''; position: absolute;
+    top: -1px; left: -1px; right: -1px; height: 2px;
+    background: linear-gradient(to right, transparent, var(--mango), transparent);
+  }
+  .lyrics-top {
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--black-border);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem;
+  }
+  .lyrics-top-left { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .lyrics-top-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.15rem; color: var(--white);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .lyrics-top-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--white-dim);
+  }
+  .lyrics-btn {
+    background: none; border: 1px solid var(--black-border);
+    color: var(--white-muted);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem; cursor: pointer; transition: all 0.3s ease;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .lyrics-btn:hover { border-color: var(--mango); color: var(--mango); }
+  .lyrics-fade { position: relative; }
+  .lyrics-fade::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 80px;
+    background: linear-gradient(to top, var(--black-card), transparent);
+    pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .lyrics-fade.open::after { opacity: 0; }
+  .lyrics-scroll {
+    max-height: 350px; overflow-y: auto;
+    padding: 1.5rem 1.75rem;
+    scrollbar-width: thin; scrollbar-color: var(--black-border) transparent;
+    transition: max-height 0.5s ease;
+  }
+  .lyrics-scroll.open { max-height: 3000px; }
+  .lyrics-text {
+    font-size: 0.85rem; line-height: 1.95;
+    color: var(--white-muted); white-space: pre-line; font-weight: 300;
+  }
+  .lyrics-text strong {
+    color: var(--mango); font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: block; margin-top: 1.5rem; margin-bottom: 0.5rem;
+  }
+
+  /* ========== CTA ========== */
+  .cta-banner {
+    text-align: center; padding: 4.5rem 1.5rem; position: relative;
+  }
+  .cta-banner::before {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: min(500px, 90vw); height: 300px;
+    background: radial-gradient(circle, var(--mango-glow), transparent 70%);
+    filter: blur(80px); opacity: 0.25; pointer-events: none;
+  }
+  .cta-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.35rem, 3.5vw, 2.4rem);
+    font-weight: 400; color: var(--white);
+    max-width: 550px; margin: 0 auto 1.75rem; line-height: 1.3;
+    position: relative; text-align: center;
+  }
+  .cta-text em { font-style: italic; color: var(--mango); }
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.8rem 1.8rem;
+    background: var(--mango); color: var(--black);
+    border: none; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.3s ease; position: relative;
+    letter-spacing: 0.02em;
+    box-shadow: 0 0 30px rgba(241,171,28,0.2);
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(241,171,28,0.35); }
+  .cta-btn svg { width: 14px; height: 14px; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    padding: 3.5rem 1.5rem; text-align: center;
+    border-top: 1px solid var(--black-border);
+  }
+  .f-brand {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.55rem; margin-bottom: 1rem;
+  }
+  .f-logo {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .f-logo img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .f-wordmark {
+    font-weight: 500; font-size: 0.75rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--white-muted);
+  }
+  .f-thesis {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem; font-style: italic;
+    color: var(--white-dim); margin-bottom: 0.75rem;
+  }
+  .f-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--white-dim);
+  }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  .fade-in {
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ========== RESPONSIVE: TABLET ========== */
+  @media (max-width: 768px) {
+    nav { padding: 0.85rem 1.25rem; }
+    .nav-logo { width: 28px; height: 28px; font-size: 1rem; }
+    .nav-wordmark { font-size: 0.78rem; }
+    .nav-label { font-size: 0.55rem; padding: 0.25rem 0.65rem; }
+    .hero { padding: 6rem 1.25rem 3.5rem; }
+    .hero-eyebrow { font-size: 0.55rem; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .hero-eyebrow::before, .hero-eyebrow::after { width: 20px; }
+    .hero-tagline { margin: 0 auto 2rem; }
+    .container { padding: 3.5rem 1.25rem; }
+    .section-subtitle { margin-bottom: 2rem; }
+    .highlights-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .episode-bar { flex-direction: column; align-items: flex-start; }
+    .episode-details { gap: 1.5rem; }
+    .m-card { max-width: 100%; }
+    .lyrics-top { padding: 1.25rem; }
+    .lyrics-scroll { padding: 1.25rem; }
+    .cta-banner { padding: 3.5rem 1.25rem; }
+    .scroll-indicator { bottom: 1.5rem; }
+    .scroll-line { height: 25px; }
+  }
+
+  /* ========== RESPONSIVE: MOBILE ========== */
+  @media (max-width: 480px) {
+    .nav-label { display: none; }
+    .nav-wordmark { font-size: 0.72rem; }
+    .hero { padding: 5.5rem 1rem 3rem; min-height: 100dvh; }
+    .hero-name { line-height: 1; margin: 0 auto 1rem; }
+    .hero-meta { gap: 1.25rem; }
+    .meta-label { font-size: 0.5rem; letter-spacing: 0.12em; }
+    .container { padding: 3rem 1rem; }
+    .section-eyebrow { font-size: 0.55rem; }
+    .episode-details { gap: 1.25rem; }
+    .ep-detail-value { font-size: 0.92rem; }
+    .h-body { padding: 0.85rem 1rem 1rem; }
+    .h-caption { font-size: 0.82rem; }
+    .m-header { padding: 1.25rem 1.15rem 0.85rem; gap: 0.85rem; }
+    .m-icon { width: 42px; height: 42px; border-radius: 8px; }
+    .m-icon svg { width: 18px; height: 18px; }
+    .m-title { font-size: 1rem; }
+    .m-embed { padding: 0 1rem 1rem; }
+    .lyrics-top { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1rem; }
+    .lyrics-scroll { padding: 1rem; }
+    .lyrics-text { font-size: 0.82rem; }
+    .audio-btn { bottom: 1rem; right: 1rem; }
+    .scroll-indicator span { font-size: 0.5rem; }
+  }
+
+  /* ========== RESPONSIVE: SMALL MOBILE ========== */
+  @media (max-width: 360px) {
+    .hero { padding: 5rem 0.85rem 2.5rem; }
+    .hero-eyebrow { font-size: 0.5rem; letter-spacing: 0.18em; }
+    .hero-meta { flex-wrap: wrap; gap: 1rem; }
+    .container { padding: 2.5rem 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop preload="auto">
+  <source src="https://drive.google.com/uc?export=download&id=19AvLbyQ9Mt-Bd5_pfYXgANsVQng9ZBBk" type="audio/mpeg">
+</audio>
+
+<!-- AMBIENT SHAPES -->
+<div class="ambient" aria-hidden="true">
+  <div class="ambient-shape orbit-1"></div>
+  <div class="ambient-shape orbit-2"></div>
+  <div class="ambient-shape orbit-3"></div>
+  <div class="node node-1"></div>
+  <div class="node node-2"></div>
+  <div class="node node-3"></div>
+  <div class="node node-4"></div>
+  <div class="node node-5"></div>
+  <div class="diamond diamond-1"></div>
+  <div class="diamond diamond-2"></div>
+  <div class="diamond diamond-3"></div>
+  <div class="crosshair cross-1"></div>
+  <div class="crosshair cross-2"></div>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+</div>
+
+<!-- SPLASH -->
+<div class="splash" id="splash" onclick="enterSite()">
+  <div class="splash-inner">
+    <div class="splash-logo"><img src="https://raw.githubusercontent.com/mango-magic/featured/main/logo.png" alt="MangoMagic"></div>
+    <div class="splash-wordmark">Mango<span>Magic</span> Live</div>
+    <div class="splash-thesis">Amplifying human signal with AI</div>
+    <button class="splash-btn">
+      Enter
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- AUDIO TOGGLE -->
+<button class="audio-btn playing" id="audioBtn" onclick="toggleAudio()">
+  <svg class="icon-playing" viewBox="0 0 24 24" fill="none" stroke="var(--white-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+  </svg>
+  <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="var(--white-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <line x1="23" y1="9" x2="17" y2="15"/>
+    <line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+</button>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo"><img src="https://raw.githubusercontent.com/mango-magic/featured/main/logo.png" alt="MangoMagic"></div>
+    <div class="nav-wordmark">Mango<span>Magic</span></div>
+  </a>
+  <div class="nav-label">MangoMagic Live</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">MangoMagic Live - Episode</div>
+  <h1 class="hero-name">Jimi <em> Cohen</em></h1>
+  <p class="hero-tagline">"Planting a billion trees, one country at a time. Join Guinness World Record holder Jimi Cohen as he shares his incredible mission to unite nations in the fight against climate change through massive tree-planting initiatives."</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-value">27</div>
+      <div class="meta-label">Highlights</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-value">1</div>
+      <div class="meta-label">Track</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-value">Mar 5th</div>
+      <div class="meta-label">2026</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Watch below</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- FULL EPISODE -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Full Episode</div>
+  <h2 class="section-title">The complete <em>conversation</em></h2>
+  <p class="section-subtitle">Jimi on planning a billion mangrove trees via the Grolympic One Day Initiative, carbon credits funding, drone-based planting, and the Proof of Tree platform - recorded live on MangoMagic Live.</p>
+  <div class="episode-card">
+    <div class="gdrive-embed">
+      <iframe src="https://drive.google.com/file/d/1myQboNvHooSf7-cScLI74Ag8bPQMtfSE/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="episode-bar">
+      <div class="episode-details">
+        <div class="ep-detail">
+          <span class="ep-detail-label">Guest</span>
+          <span class="ep-detail-value">Jimi Cohen</span>
+        </div>
+        <div class="ep-detail">
+          <span class="ep-detail-label">Recorded</span>
+          <span class="ep-detail-value">March 5th 2026</span>
+        </div>
+        <div class="ep-detail">
+          <span class="ep-detail-label">Format</span>
+          <span class="ep-detail-value">MangoMagic Live</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HIGHLIGHTS -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Highlight Reel</div>
+  <h2 class="section-title">The moments that <em>hit</em></h2>
+  <p class="section-subtitle">Twenty-seven moments from the conversation on mangrove planning, carbon credits funding, drone-based planting, and the Proof of Tree platform.</p>
+  <div class="highlights-grid">
+
+    <div class="h-card">
+      <div class="h-number">Clip 1</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1OOUIITi1QRBoErPvDaBdJMlcXmhzFQBB/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="h-body">
+        <p class="h-caption">One Day Initiative (Ethiopia): 29 million people united to plant 714 million trees in 24 hours, setting a record and pushing toward the goal of one billion trees, with the Grolympic Games highlighting impact.</p>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 2</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1oNCeAPlbjVF4Fruqkyy_yk_4rbX9MQ51/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="h-body">
+        <p class="h-caption">Guinness World Record holder for most trees planted in 24 hours: over 30,000 mangrove trees planted, with lighthearted 'secrets' behind the remarkable feat.</p>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 3</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1FbIycvNLkxmcDDVBGIVAVEYNwQMcTIAN/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="h-body">
+        <p class="h-caption">Australia's bushfires' devastating impact on wildlife: alarming animal death numbers and biodiversity loss, underscoring the urgent need for action.</p>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 4</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1pZRuPYxe1Pmx-g-ltpRpvxktBFwCgKn6/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="h-body">
+        <p class="h-caption">TreeGens and carbon credits: a $400K investment to preserve the Amazon and fund reforestation, signaling a forward-looking approach to carbon offsetting.</p>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 5</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1yCKT_kCMtpqxzDrNO_HoRDN6GRrQuH50/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="h-body">
+        <p class="h-caption">CORSIA credits and a startup's historic deal: funding that can plant more trees and unlock opportunities in a multi-billion-dollar market.</p>
+      </div>
+    </div>
+
+    <div class="h-card">
+      <div class="h-number">Clip 6</div>
+      <div class="h-video">
+        <iframe src="https://drive.google.com/file/d/1VCfz9ofgLGAwtTwgEcChufTqJuFggj8G/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="h-body">
+        <p class="h-caption">Australia vs. Ethiopia: bushfires and animal loss, exploring whether Australia can match Ethiopia's tree-planting scale given labor and land challenges.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MUSIC -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="section-eyebrow">Original Soundtrack</div>
+  <h2 class="section-title">Made for <em>Jimi </em></h2>
+  <p class="section-subtitle">Every MangoMagic Live guest gets their own original track. This one was composed specifically for this episode.</p>
+  <div class="m-card">
+    <div class="m-header">
+      <div class="m-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <div class="m-meta">
+        <div class="m-title">Jimi Goes Green: The Mangrove Groove</div>
+        <div class="m-subtitle">Original - Jimi Cohen Episode</div>
+      </div>
+    </div>
+    <div class="m-embed">
+      <iframe src="https://drive.google.com/file/d/19AvLbyQ9Mt-Bd5_pfYXgANsVQng9ZBBk/preview" width="100%" height="80" allow="autoplay" style="border:none;border-radius:8px;"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- LYRICS -->
+<div class="section-divider"></div>
+<div class="container fade-in">
+  <div class="lyrics-wrap">
+    <div class="section-eyebrow">The Words</div>
+    <h2 class="section-title">Jimi 's <em>anthem</em></h2>
+    <p class="section-subtitle">Custom lyrics written for this episode. Because every signal deserves its own soundtrack.</p>
+    <div class="lyrics-box">
+      <div class="lyrics-top">
+        <div class="lyrics-top-left">
+          <div class="lyrics-top-title">Jimi Goes Green: The Mangrove Groove</div>
+          <div class="lyrics-top-sub">Written for MangoMagic Live</div>
+        </div>
+        <button class="lyrics-btn" onclick="toggleLyrics()">Expand</button>
+      </div>
+      <div class="lyrics-fade" id="lyricsFade">
+        <div class="lyrics-scroll" id="lyricsScroll">
+          <div class="lyrics-text">In the morning light, Isaac Cohen’s on the grind,<br>
+With his tools of the trade, he’s ready to unwind.<br>
+Account Management’s where he starts his day,<br>
+Loading up the systems, making work less gray.<br>
+Waiting for the data, it’s a test of will,<br>
+But he keeps it moving, focused on the thrill.<br>
+<br>
+Isaac’s got the magic, turning chaos into flow,<br>
+With every little click, watch the productivity grow.<br>
+He’s joining up the meetings, keeping track of it all,<br>
+When the tools are loading slow, he just stands tall.<br>
+<br>
+Oh, it’s auto approved, he’s got that tech in hand,<br>
+Creating audio transcripts, making life more grand.<br>
+Isaac Cohen’s on the scene, setting the bar high,<br>
+With a smile on his face, he’s reaching for the sky.<br>
+<br>
+In the world of magic, things are moving fast,<br>
+He’s breaking down the barriers, making moments last.<br>
+Isaac’s got the vision, and he’s leading the way,<br>
+With every little step, he’s here to save the day.<br>
+<br>
+<strong>(Pre-Chorus)</strong><br>
+Oh, the magic flows, can’t you see?<br>
+Isaac’s in the zone, where he’s meant to be.<br>
+Loading up the tools, making dreams come true,<br>
+With each passing moment, there’s so much to do.<br>
+<br>
+<strong>(Chorus)</strong><br>
+Isaac Cohen, yeah, he’s on a roll,<br>
+With his tools and techniques, he’s reaching every goal.<br>
+In the world of tech, he’s a shining star,<br>
+Isaac’s got the magic, taking us so far.<br>
+<br>
+<strong>(Verse 2)</strong><br>
+Through the ups and downs, he’s never losing track,<br>
+Taking meetings in stride, never looking back.<br>
+With every recorded moment, he’s building his way,<br>
+Creating all the magic, come what may.<br>
+<br>
+Isaac’s got the passion, he’s got the drive,<br>
+With the world of AI, he’s keeping dreams alive.<br>
+So let’s raise a toast, to the work he’s done,<br>
+In the world of tech, he’s the shining one.<br>
+<br>
+<strong>(Pre-Chorus)</strong><br>
+Oh, the magic flows, can’t you see?<br>
+Isaac’s in the zone, where he’s meant to be.<br>
+Loading up the tools, making dreams come true,<br>
+With each passing moment, there’s so much to do.<br>
+<br>
+<strong>(Chorus)</strong><br>
+Isaac Cohen, yeah, he’s on a roll,<br>
+With his tools and techniques, he’s reaching every goal.<br>
+In the world of tech, he’s a shining star,<br>
+Isaac’s got the magic, taking us so far.<br>
+<br>
+<strong>(Bridge)</strong><br>
+So here’s to the moments, that make us feel alive,<br>
+With Isaac leading the way, we all can thrive.<br>
+The tools may load slowly, but he’s got the key,<br>
+In the world of magic, there’s so much to see.<br>
+<br>
+<strong>(Chorus)</strong><br>
+Isaac Cohen, yeah, he’s on a roll,<br>
+With his tools and techniques, he’s reaching every goal.<br>
+In the world of tech, he’s a shining star,<br>
+Isaac’s got the magic, taking us so far.<br>
+<br>
+<strong>(Outro)</strong><br>
+So let’s keep on moving, let’s keep it bright,<br>
+With Isaac in the lead, everything feels right.<br>
+In this world of magic, we’re all here to play,<br>
+Isaac Cohen’s got the magic, leading the way.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="section-divider"></div>
+<div class="cta-banner fade-in">
+  <div class="cta-text">Want to bring <em>your signal</em> to MangoMagic Live?</div>
+  <a href="https://magic.manymangoes.com.au/apply-speaker" class="cta-btn">
+    Apply to be a guest
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<div class="section-divider"></div>
+<footer>
+  <div class="f-brand">
+    <div class="f-logo"><img src="https://raw.githubusercontent.com/mango-magic/featured/main/logo.png" alt="MangoMagic"></div>
+    <div class="f-wordmark">MangoMagic</div>
+  </div>
+  <div class="f-thesis">The future of content is human.</div>
+  <div class="f-copy">&copy; 2026 MangoMagic. Signal over noise.</div>
+</footer>
+
+<script>
+  const audio = document.getElementById('bgAudio');
+  const splash = document.getElementById('splash');
+  const btn = document.getElementById('audioBtn');
+  let playing = false;
+
+  function enterSite() {
+    splash.classList.add('hidden');
+    btn.style.display = 'flex';
+    audio.volume = 0.3;
+    audio.play().then(() => {
+      playing = true;
+      btn.classList.add('playing');
+      btn.classList.remove('muted');
+    }).catch(() => {
+      playing = false;
+      btn.classList.remove('playing');
+      btn.classList.add('muted');
+    });
+  }
+
+  function toggleAudio() {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      btn.classList.remove('playing');
+      btn.classList.add('muted');
+    } else {
+      audio.play().then(() => {
+        playing = true;
+        btn.classList.add('playing');
+        btn.classList.remove('muted');
+      });
+    }
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // Ambient parallax - shapes respond to scroll
+  const ambient = document.querySelector('.ambient');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const s = window.scrollY;
+        const orbits = ambient.querySelectorAll('.ambient-shape');
+        const nodes = ambient.querySelectorAll('.node');
+        const diamonds = ambient.querySelectorAll('.diamond');
+        orbits.forEach((el, i) => {
+          el.style.transform = `rotate(${s * (0.02 + i * 0.01)}deg) translateY(${s * (0.03 + i * 0.01)}px)`;
+        });
+        nodes.forEach((el, i) => {
+          el.style.marginTop = `${Math.sin(s * 0.003 + i) * 15}px`;
+        });
+        diamonds.forEach((el, i) => {
+          const drift = Math.sin(s * 0.002 + i * 2) * 10;
+          el.style.marginLeft = `${drift}px`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  function toggleLyrics() {
+    const scroll = document.getElementById('lyricsScroll');
+    const fade = document.getElementById('lyricsFade');
+    const b = document.querySelector('.lyrics-btn');
+    scroll.classList.toggle('open');
+    fade.classList.toggle('open');
+    b.textContent = scroll.classList.contains('open') ? 'Collapse' : 'Expand';
+  }
+</script>
+
+</body>
+</html>
